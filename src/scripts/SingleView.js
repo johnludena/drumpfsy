@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 // REACT SINGLE VIEW
 
+
 var SingleView = React.createClass ({
 
 	// Render method calls buildTemplate method for painting all of view's HTML
@@ -16,7 +17,7 @@ var SingleView = React.createClass ({
 				<h2>{model.get('title')}</h2>
 				<p>{model.get('description')}</p>
 				<img src={model.get('Images')[0].url_570xN} />
-
+				<p>Test!</p>
 			</div>
 		)
 	},

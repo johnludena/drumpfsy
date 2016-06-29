@@ -33295,7 +33295,7 @@ var SingleView = _react2.default.createClass({
 
 		var model = this.props.itemModel;
 
-		return _react2.default.createElement('div', { className: 'articlesView' }, _react2.default.createElement('h2', null, model.get('title')), _react2.default.createElement('p', null, model.get('description')), _react2.default.createElement('img', { src: model.get('Images')[0].url_570xN }));
+		return _react2.default.createElement('div', { className: 'articlesView' }, _react2.default.createElement('h2', null, model.get('title')), _react2.default.createElement('p', null, model.get('description')), _react2.default.createElement('img', { src: model.get('Images')[0].url_570xN }), _react2.default.createElement('p', null, 'Test!'));
 	}
 
 });
