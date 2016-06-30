@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Header from './Header.js'
 
 // REACT MULTILIST VIEW
 var MultiListView = React.createClass ({
@@ -7,16 +8,57 @@ var MultiListView = React.createClass ({
 	render: function(){
 		
 		return (
-			<ItemsContainer itemsColl={this.props.itemsColl} />
+			<div className="view multi">
+				<Hero />
+				<ItemsContainer itemsColl={this.props.itemsColl} />
+			</div>
 		)
 	}
 })
+
+var Hero = React.createClass({
+
+	_handleSearch: function(event) {
+		if(event.keyCode === 13) {
+			var value = event.target.value
+           	console.log('here is the value>>>', value)
+           	location.hash = 'search/' + value
+		}
+	},
+
+	render: function() {
+	
+		return (
+                <div className="header">
+                	<div className="inner-wrapper">
+	                	<a className="logo" href="#home">Drumpfsy</a>
+	                	<input type="text" placeholder="Search all products" onKeyDown={this._handleSearch} id="search" />
+	                	<div id="hero">
+
+	                		<div id="text">
+	                			<h1 className="jumbo">Make Etsy great again.</h1>
+	                			<p>Buy hand-made American goods and show your support for the future President of the United States (and secret alien hiding inside an ill-fitting human suit), Mr. Donald J. Trump.</p>
+
+	                			<p>Why? Because ‘merica. That’s f*cking why.</p>
+	                		</div>
+
+	                		<div id="card">
+	                			<img src="/images/trump-card.png" />
+	                		</div>
+
+	                	</div>
+                	</div>
+                </div>
+			)		
+	}
+
+})
+
 
 
 var ItemsContainer = React.createClass ({
 		
 	_getJsxArray: function(modelsArray){
-		console.log('here comes the models array', modelsArray)
 		var jsxArray = []
 
 		modelsArray.forEach(function(model){
@@ -29,7 +71,7 @@ var ItemsContainer = React.createClass ({
 
 	render: function(){
 		return (
-			<div className="items-container">
+			<div className="inner-wrapper multi-content">
 				{this._getJsxArray(this.props.itemsColl.models)}
 			</div>
 		)
@@ -40,15 +82,21 @@ var ItemsContainer = React.createClass ({
 var Item = React.createClass ({
 
 	render: function(){
-		console.log('itemColl data...')
 		
 		var model = this.props.itemModel
+
+		var title = model.get('title')
 		
 		return (
-			<div class="single-item-container">
-				<h2>{model.get('title')}</h2>
-				<img src={model.get('Images')[0].url_75x75} />
-				<a href={"#listing/" + model.get('listing_id')}>View more</a>
+			<div className="item-container">
+				<div className="img-container">
+					<a href={"#listing/" + model.get('listing_id')}>
+						<img src={model.get('Images')[0].url_570xN} />
+					</a>
+
+				</div>
+				
+				<h2>{title.substr(0, 70)}...</h2>
 			</div>
 		)
 	}

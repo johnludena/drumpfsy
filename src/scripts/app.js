@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
 import MultiListView from './MultiListView'
 import SingleView from './SingleView'
+import SearchView from './SearchView'
 
 
 const app = function() {
-
-	console.log('this is backbone')
-	console.log(Backbone)
-	
 
 	// ETSY BACKBONE COLLECTION
 	var EtsyCollection = Backbone.Collection.extend({
@@ -20,7 +17,6 @@ const app = function() {
 		_key: 'loicqk56ptajxpl0j4omq676',
 
 		parse: function(rawJSON) {
-			console.log(rawJSON)
 			return rawJSON.results
 
 		}
@@ -39,8 +35,6 @@ const app = function() {
 		_key: 'loicqk56ptajxpl0j4omq676',	
 
 		parse: function(rawJSON) {
-			console.log('etsy model rawJSON results...')
-			console.log(rawJSON.results[0])
 			return rawJSON.results[0]
 		},
 
@@ -59,7 +53,6 @@ const app = function() {
 		_key: 'loicqk56ptajxpl0j4omq676',
 
 		parse: function(rawJSON) {
-			console.log(rawJSON)
 			return rawJSON.results
 		}
 	})
@@ -82,8 +75,6 @@ const app = function() {
 	// = HEADER COMPONENT =
 	var Body = React.createClass ({
 		render: function(){
-			console.log('this is the props data on the body...')
-			console.log(this.props)
 
 			var modelsArray = this.props.itemsColl.models
 
@@ -94,9 +85,6 @@ const app = function() {
 				emptyArr.push(<p>cosimo # {i} </p> )
 
 			}
-
-			console.log('empty array...')
-			console.log(emptyArr)
 
 			return (
 				<div className="content-wrapper">
@@ -119,8 +107,6 @@ const app = function() {
 		},
 
 		handleHome: function(){
-
-			console.log('This is the home view')
 			
 			// Creating new instance of EtsyCollection
 			var homeCollection = new EtsyCollection()
@@ -133,6 +119,7 @@ const app = function() {
 		            includes: 'Images,Shop',
 		            processData: true,
 		            limit: 50,
+		            keywords: 'funny donald trump'
 
 				}
 			}).then(function(){
@@ -162,10 +149,8 @@ const app = function() {
 		            keywords: keyword,
 				}
 			}).then(function(apiResponse){
-				console.log('api response from search:')
-				console.log(apiResponse)
-
-				ReactDOM.render(<MultiListView itemsColl={searchColl} />, document.querySelector('.container'))
+			
+				ReactDOM.render(<SearchView itemsColl={searchColl} />, document.querySelector('.container'))
 
 				// var searchView = new MultiListView(searchColl)
 				// searchView._render()
@@ -175,7 +160,6 @@ const app = function() {
 		},
 
 		handleSingleListing: function(listingId) {
-			console.log('This is the listing view!')
 
 			var singleItemModel = new EtsyModel(listingId)
 
@@ -198,7 +182,6 @@ const app = function() {
 		},
 
 		redirectHome: function() {
-			console.log('you typed in a hash that doesnt exist and will be sent back to home')
 			location.hash = 'home'
 		},
 

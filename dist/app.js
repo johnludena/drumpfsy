@@ -33222,48 +33222,25 @@ function _interopRequireDefault(obj) {
 	return obj && obj.__esModule ? obj : { default: obj };
 }
 
-// REACT MULTILIST VIEW
-var MultiListView = _react2.default.createClass({
-	displayName: 'MultiListView',
+var Header = _react2.default.createClass({
+	displayName: 'Header',
 
-	render: function render() {
-
-		return _react2.default.createElement(ItemsContainer, { itemsColl: this.props.itemsColl });
-	}
-});
-
-var ItemsContainer = _react2.default.createClass({
-	displayName: 'ItemsContainer',
-
-	_getJsxArray: function _getJsxArray(modelsArray) {
-		console.log('here comes the models array', modelsArray);
-		var jsxArray = [];
-
-		modelsArray.forEach(function (model) {
-			jsxArray.push(_react2.default.createElement(Item, { itemModel: model }));
-		});
-
-		return jsxArray;
+	_handleSearch: function _handleSearch(event) {
+		if (event.keyCode === 13) {
+			var value = event.target.value;
+			console.log('here is the value>>>', value);
+			location.hash = 'search/' + value;
+		}
 	},
 
 	render: function render() {
-		return _react2.default.createElement('div', { className: 'items-container' }, this._getJsxArray(this.props.itemsColl.models));
+
+		return _react2.default.createElement('div', { className: 'header' }, _react2.default.createElement('div', { className: 'inner-wrapper' }, _react2.default.createElement('a', { className: 'logo', href: '#home' }, 'Drumpfsy'), _react2.default.createElement('input', { type: 'text', placeholder: 'Search all products', onKeyDown: this._handleSearch, id: 'search' })));
 	}
+
 });
 
-var Item = _react2.default.createClass({
-	displayName: 'Item',
-
-	render: function render() {
-		console.log('itemColl data...');
-
-		var model = this.props.itemModel;
-
-		return _react2.default.createElement('div', { 'class': 'single-item-container' }, _react2.default.createElement('h2', null, model.get('title')), _react2.default.createElement('img', { src: model.get('Images')[0].url_75x75 }), _react2.default.createElement('a', { href: "#listing/" + model.get('listing_id') }, 'View more'));
-	}
-});
-
-exports.default = MultiListView;
+exports.default = Header;
 
 },{"react":169,"react-dom":4}],172:[function(require,module,exports){
 'use strict';
@@ -33280,6 +33257,160 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Header = require('./Header.js');
+
+var _Header2 = _interopRequireDefault(_Header);
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+// REACT MULTILIST VIEW
+var MultiListView = _react2.default.createClass({
+	displayName: 'MultiListView',
+
+	render: function render() {
+
+		return _react2.default.createElement('div', { className: 'view multi' }, _react2.default.createElement(Hero, null), _react2.default.createElement(ItemsContainer, { itemsColl: this.props.itemsColl }));
+	}
+});
+
+var Hero = _react2.default.createClass({
+	displayName: 'Hero',
+
+	_handleSearch: function _handleSearch(event) {
+		if (event.keyCode === 13) {
+			var value = event.target.value;
+			console.log('here is the value>>>', value);
+			location.hash = 'search/' + value;
+		}
+	},
+
+	render: function render() {
+
+		return _react2.default.createElement('div', { className: 'header' }, _react2.default.createElement('div', { className: 'inner-wrapper' }, _react2.default.createElement('a', { className: 'logo', href: '#home' }, 'Drumpfsy'), _react2.default.createElement('input', { type: 'text', placeholder: 'Search all products', onKeyDown: this._handleSearch, id: 'search' }), _react2.default.createElement('div', { id: 'hero' }, _react2.default.createElement('div', { id: 'text' }, _react2.default.createElement('h1', { className: 'jumbo' }, 'Make Etsy great again.'), _react2.default.createElement('p', null, 'Buy hand-made American goods and show your support for the future President of the United States (and secret alien hiding inside an ill-fitting human suit), Mr. Donald J. Trump.'), _react2.default.createElement('p', null, 'Why? Because ‘merica. That’s f*cking why.')), _react2.default.createElement('div', { id: 'card' }, _react2.default.createElement('img', { src: '/images/trump-card.png' })))));
+	}
+
+});
+
+var ItemsContainer = _react2.default.createClass({
+	displayName: 'ItemsContainer',
+
+	_getJsxArray: function _getJsxArray(modelsArray) {
+		var jsxArray = [];
+
+		modelsArray.forEach(function (model) {
+			jsxArray.push(_react2.default.createElement(Item, { itemModel: model }));
+		});
+
+		return jsxArray;
+	},
+
+	render: function render() {
+		return _react2.default.createElement('div', { className: 'inner-wrapper multi-content' }, this._getJsxArray(this.props.itemsColl.models));
+	}
+});
+
+var Item = _react2.default.createClass({
+	displayName: 'Item',
+
+	render: function render() {
+
+		var model = this.props.itemModel;
+
+		var title = model.get('title');
+
+		return _react2.default.createElement('div', { className: 'item-container' }, _react2.default.createElement('div', { className: 'img-container' }, _react2.default.createElement('a', { href: "#listing/" + model.get('listing_id') }, _react2.default.createElement('img', { src: model.get('Images')[0].url_570xN }))), _react2.default.createElement('h2', null, title.substr(0, 70), '...'));
+	}
+});
+
+exports.default = MultiListView;
+
+},{"./Header.js":171,"react":169,"react-dom":4}],173:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Header = require('./Header.js');
+
+var _Header2 = _interopRequireDefault(_Header);
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+// REACT MULTILIST VIEW
+var MultiListView = _react2.default.createClass({
+	displayName: 'MultiListView',
+
+	render: function render() {
+
+		return _react2.default.createElement('div', { className: 'view multi' }, _react2.default.createElement(_Header2.default, null), _react2.default.createElement(ItemsContainer, { itemsColl: this.props.itemsColl }));
+	}
+});
+
+var ItemsContainer = _react2.default.createClass({
+	displayName: 'ItemsContainer',
+
+	_getJsxArray: function _getJsxArray(modelsArray) {
+		var jsxArray = [];
+
+		modelsArray.forEach(function (model) {
+			jsxArray.push(_react2.default.createElement(Item, { itemModel: model }));
+		});
+
+		return jsxArray;
+	},
+
+	render: function render() {
+		return _react2.default.createElement('div', { className: 'inner-wrapper multi-content' }, this._getJsxArray(this.props.itemsColl.models));
+	}
+});
+
+var Item = _react2.default.createClass({
+	displayName: 'Item',
+
+	render: function render() {
+
+		var model = this.props.itemModel;
+
+		var title = model.get('title');
+
+		return _react2.default.createElement('div', { className: 'item-container' }, _react2.default.createElement('div', { className: 'img-container' }, _react2.default.createElement('a', { href: "#listing/" + model.get('listing_id') }, _react2.default.createElement('img', { src: model.get('Images')[0].url_570xN }))), _react2.default.createElement('h2', null, title.substr(0, 70), '...'));
+	}
+});
+
+exports.default = MultiListView;
+
+},{"./Header.js":171,"react":169,"react-dom":4}],174:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Header = require('./Header.js');
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) {
 	return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -33291,18 +33422,42 @@ var SingleView = _react2.default.createClass({
 
 	// Render method calls buildTemplate method for painting all of view's HTML
 	render: function render() {
-		console.log('single props >>>', this.props.itemModel);
+		console.log('rendering singleview...');
 
+		return _react2.default.createElement('div', { className: 'view single' }, _react2.default.createElement(_Header2.default, null), _react2.default.createElement(SingleContent, { itemModel: this.props.itemModel }));
+	}
+
+});
+
+var SingleContent = _react2.default.createClass({
+	displayName: 'SingleContent',
+
+	_getPars: function _getPars(descr) {
+		var ps = [],
+		    line = '';
+		for (var i = 0; i < descr.length; i++) {
+			line += descr[i];
+			if (descr[i] === '\n') {
+				ps.push(_react2.default.createElement('p', null, line));
+				line = '';
+			}
+		}
+		return ps;
+	},
+
+	render: function render() {
 		var model = this.props.itemModel;
 
-		return _react2.default.createElement('div', { className: 'articlesView' }, _react2.default.createElement('h2', null, model.get('title')), _react2.default.createElement('p', null, model.get('description')), _react2.default.createElement('img', { src: model.get('Images')[0].url_570xN }), _react2.default.createElement('p', null, 'Test!'));
+		console.log(model);
+
+		return _react2.default.createElement('div', { className: 'inner-wrapper single-content' }, _react2.default.createElement('div', { className: 'single-item' }, _react2.default.createElement('div', { className: 'left-col' }, _react2.default.createElement('img', { src: model.get('Images')[0].url_570xN })), _react2.default.createElement('div', { className: 'right-col' }, _react2.default.createElement('h1', null, model.get('title')), this._getPars(model.get('description')), _react2.default.createElement('a', { href: model.get('url'), className: 'button' }, 'Buy it on Etsy.com'))));
 	}
 
 });
 
 exports.default = SingleView;
 
-},{"react":169,"react-dom":4}],173:[function(require,module,exports){
+},{"./Header.js":171,"react":169,"react-dom":4}],175:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -33325,14 +33480,15 @@ var _SingleView = require('./SingleView');
 
 var _SingleView2 = _interopRequireDefault(_SingleView);
 
+var _SearchView = require('./SearchView');
+
+var _SearchView2 = _interopRequireDefault(_SearchView);
+
 function _interopRequireDefault(obj) {
 	return obj && obj.__esModule ? obj : { default: obj };
 }
 
 var app = function app() {
-
-	console.log('this is backbone');
-	console.log(_backbone2.default);
 
 	// ETSY BACKBONE COLLECTION
 	var EtsyCollection = _backbone2.default.Collection.extend({
@@ -33343,7 +33499,6 @@ var app = function app() {
 		_key: 'loicqk56ptajxpl0j4omq676',
 
 		parse: function parse(rawJSON) {
-			console.log(rawJSON);
 			return rawJSON.results;
 		}
 
@@ -33361,8 +33516,6 @@ var app = function app() {
 		_key: 'loicqk56ptajxpl0j4omq676',
 
 		parse: function parse(rawJSON) {
-			console.log('etsy model rawJSON results...');
-			console.log(rawJSON.results[0]);
 			return rawJSON.results[0];
 		},
 
@@ -33381,7 +33534,6 @@ var app = function app() {
 		_key: 'loicqk56ptajxpl0j4omq676',
 
 		parse: function parse(rawJSON) {
-			console.log(rawJSON);
 			return rawJSON.results;
 		}
 	});
@@ -33400,8 +33552,6 @@ var app = function app() {
 		displayName: 'Body',
 
 		render: function render() {
-			console.log('this is the props data on the body...');
-			console.log(this.props);
 
 			var modelsArray = this.props.itemsColl.models;
 
@@ -33411,9 +33561,6 @@ var app = function app() {
 				// emptyArr.push(<Item model={modelsAray[i]} /> )
 				emptyArr.push(_react2.default.createElement('p', null, 'cosimo # ', i, ' '));
 			}
-
-			console.log('empty array...');
-			console.log(emptyArr);
 
 			return _react2.default.createElement('div', { className: 'content-wrapper' }, emptyArr);
 		}
@@ -33431,8 +33578,6 @@ var app = function app() {
 
 		handleHome: function handleHome() {
 
-			console.log('This is the home view');
-
 			// Creating new instance of EtsyCollection
 			var homeCollection = new EtsyCollection();
 
@@ -33443,7 +33588,8 @@ var app = function app() {
 					api_key: homeCollection._key,
 					includes: 'Images,Shop',
 					processData: true,
-					limit: 50
+					limit: 50,
+					keywords: 'funny donald trump'
 
 				}
 			}).then(function () {
@@ -33470,10 +33616,8 @@ var app = function app() {
 					keywords: keyword
 				}
 			}).then(function (apiResponse) {
-				console.log('api response from search:');
-				console.log(apiResponse);
 
-				_reactDom2.default.render(_react2.default.createElement(_MultiListView2.default, { itemsColl: searchColl }), document.querySelector('.container'));
+				_reactDom2.default.render(_react2.default.createElement(_SearchView2.default, { itemsColl: searchColl }), document.querySelector('.container'));
 
 				// var searchView = new MultiListView(searchColl)
 				// searchView._render()
@@ -33481,7 +33625,6 @@ var app = function app() {
 		},
 
 		handleSingleListing: function handleSingleListing(listingId) {
-			console.log('This is the listing view!');
 
 			var singleItemModel = new EtsyModel(listingId);
 
@@ -33503,7 +33646,6 @@ var app = function app() {
 		},
 
 		redirectHome: function redirectHome() {
-			console.log('you typed in a hash that doesnt exist and will be sent back to home');
 			location.hash = 'home';
 		},
 
@@ -33519,4 +33661,4 @@ var app = function app() {
 
 app();
 
-},{"./MultiListView":171,"./SingleView":172,"backbone":1,"react":169,"react-dom":4}]},{},[173]);
+},{"./MultiListView":172,"./SearchView":173,"./SingleView":174,"backbone":1,"react":169,"react-dom":4}]},{},[175]);
